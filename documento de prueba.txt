@@ -2,3 +2,10 @@ comenzando las pruebas
 
 
 Comenzando las pruebas para el proyecto
+
+
+
+https://newsapi.org/
+
+
+https://github.com/amitshekhariitbhu/Fast-Android-Networking
