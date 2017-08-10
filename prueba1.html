@@ -1,0 +1,130 @@
+<!doctype html>
+<head>
+
+<script src="https://unpkg.com/vue"></script>	
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+<meta charset="utf-8">
+
+<style type="text/css">
+	li{
+		cursor: pointer;
+	}
+	.completado {
+		text-decoration: line-through;		
+	}
+
+</style>
+
+</head>
+
+<body>
+	<main>
+		<h1>Tareas</h1>
+		<h2>{{ tareasCompletadas.length }} Completados</h2>
+		<ul>
+			<li 
+			:class="{completado: tarea.completado}"
+			@click="completarTarea(tarea)"
+			v-for="tarea in tareas">
+				{{tarea.titulo}}
+			</li>
+		</ul>
+
+
+		<img 
+			v-for="persona in personas" 
+			:src="persona.picture.thumbnail"
+			:alt="persona.name.first">
+
+		<!--<div v-for="tarea in tareas">
+			<div>
+				<label>{{tarea.titulo}}</label>	
+			</div>
+			<div>
+				<input type="text"  v-bind:value="tarea.titulo">	
+			</div>			
+		</div>-->
+	
+        
+        <mi-tabla v-bind:listado="tareas"></mi-tabla>
+		
+
+		<pre>{{ $data}}</pre>
+	</main>
+
+</body>
+
+<script type="text/template" id="generador-tabla">
+
+<table class="table-scroll" >
+		<thead>
+            <tr>
+                <td>Estrategia</td>
+                <td>Estado</td>
+                <td>Fecha</td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="Estrategia in listado">
+                <td>{{ Estrategia.titulo }}</td>
+                <td>{{ Estrategia.titulo }}</td>
+                <td>{{ Estrategia.titulo }}</td>
+                <td><button type="button" v-on:click.native="cargaEvento">Activar</button> </td>
+            </tr>
+        </tbody>
+</table>
+    
+</script>
+
+
+<!-- <ul><li v-for="lista in listado"> {{ lista.titulo }}</li></ul> -->
+<script type="text/javascript">
+
+Vue.component('mi-tabla', {
+    props: ['listado'],
+   
+    template: '#generador-tabla',
+});
+
+
+new Vue({
+	el: 'main',
+	data:{
+		personas: [],
+		tareas:[
+			{titulo:'Hacer la compra',completado:false},
+			{titulo:'aprender Vue.js',completado:false},
+			{titulo:'Aprender Firebase',completado:false},
+			{titulo:'Dominar ES6',completado:false},
+			{titulo:'Salir a correr',completado:false},
+		],	
+	},
+	methods:{
+		completarTarea(tarea){
+			tarea.completado =! tarea.completado;
+		},
+		cargarPersonas(){
+			this.$http.get('https://randomuser.me/api/?results=50')
+				.then((respuesta) =>{
+					this.personas = respuesta.body.results;
+				});
+		},
+		cargaEvento(){
+			console.log('test clicked');
+		}
+	},
+	computed: {
+		tareasCompletadas(){
+			return this.tareas.filter((x) => x.completado);
+		}		
+	},
+	mounted(){
+		this.cargarPersonas();
+	}
+
+
+});
+
+
+</script>
