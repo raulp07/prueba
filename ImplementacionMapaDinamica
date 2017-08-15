@@ -103,7 +103,29 @@ var beaches = [
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">Prueba '+ i +'</h1>'+
             '<div id="bodyContent">'+
-            '<p><b>Raul </b>, Raul Raul, es grande </p>' +            
+            '<p><b>Raul </b>, Raul Raul, es grande </p>' +   
+	    '<table>'+
+            '<thead>'+
+            '<tr>'+
+            '<td>codigo</td>'+
+            '<td>producto</td>'+
+            '</tr>'+            
+            '</thead>'+
+            '<tbody>'+
+            '<tr>'+
+            '<td>001</td>'+
+            '<td>producto A</td>'+
+            '</tr>'+            
+            '<tr>'+
+            '<td>002</td>'+
+            '<td>producto B</td>'+
+            '</tr>'+            
+            '<tr>'+
+            '<td>003</td>'+
+            '<td>producto C</td>'+
+            '</tr>'+            
+            '</tbody>'+
+            '</table>'+
             '</div>'+
             '</div>';
           
