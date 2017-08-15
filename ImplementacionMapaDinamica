@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+  </style>
+</head>
+<body>
+
+<h1>My First Google Map</h1>
+
+<div id="googleMap" style="width:100%;height:400px;"></div>
+
+<script>
+function myMap() {
+
+/*debugger;
+var numero = 1;
+window["variable" + numero] = "valor";
+alert(window["variable" + numero]);
+*/
+var uluru = {lat: -33.9, lng: 151.2};
+        var map = new google.maps.Map(document.getElementById('googleMap'), {
+          zoom: 10,
+          center: uluru
+        });
+
+var beaches = [
+        ['Bondi Beach', -33.890542, 151.274856, 1],
+        ['Coogee Beach', -33.923036, 151.259052, 2],
+        ['Cronulla Beach', -34.028249, 151.157507, 3],
+        ['Manly Beach', -33.80010128657071, 151.28747820854187, 4],
+        ['Maroubra Beach', -33.950198, 151.259302, 5]
+      ];
+
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Prueba 1</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Raul </b>, Raul Raul, es grande </p>' +
+            '<table>'+
+            '<thead>'+
+            '<tr>'+
+            '<td>codigo</td>'+
+            '<td>producto</td>'+
+            '</tr>'+            
+            '</thead>'+
+            '<tbody>'+
+            '<tr>'+
+            '<td>001</td>'+
+            '<td>producto A</td>'+
+            '</tr>'+            
+            '<tr>'+
+            '<td>002</td>'+
+            '<td>producto B</td>'+
+            '</tr>'+            
+            '<tr>'+
+            '<td>003</td>'+
+            '<td>producto C</td>'+
+            '</tr>'+            
+            '</tbody>'+
+            '</table>'
+            '</div>'+
+            '</div>';
+
+        
+        var shape = {
+          coords: [1, 1, 1, 20, 18, 20, 18, 1],
+          type: 'poly'
+        };
+        
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+          });
+        
+		for (var i = 0; i < beaches.length; i++) {
+          var beach = beaches[i];
+          window["marker" + i] = new google.maps.Marker({
+            position: {lat: beach[1], lng: beach[2]},
+            map: map,
+            shape: shape,
+            title: beach[0],
+            zIndex: beach[3]
+          });
+          
+          contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Prueba '+ i +'</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Raul </b>, Raul Raul, es grande </p>' +            
+            '</div>'+
+            '</div>';
+          
+          window["infowindow" + i] = new google.maps.InfoWindow({
+          content: contentString
+          });
+          /*infowindow = new google.maps.InfoWindow({
+          content: contentString
+          });*/
+          debugger;
+          window["marker" + i].addListener('click', function() {
+          
+          debugger;
+          var indice = this.zIndex-1;
+          window["infowindow" + indice].open(map, window["marker" + indice]);
+          });
+          //if(i== 0)          
+          	//break;
+        }
+
+        /*var marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+          title: 'Uluru (Ayers Rock)'
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+        */
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+<!--
+To use this code on your website, get a free API key from Google.
+Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+-->
+
+</body>
+</html>
